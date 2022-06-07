@@ -160,10 +160,18 @@ var startGame = function() {
 }
 
 var endGame = function() {
-    if (playerInfo.health > 0) {
-        window.alert("You survived! Great job! You now have a score of " + playerInfo.money + ".");
+    window.alert("The games have ended! Let's see how you did!");
+
+    var highScore = localStorage.getItem("highscore");
+    highScore = highScore || 0;
+
+    if (playerInfo.money > highScore) {
+        localStorage.setItem("highscore", playerInfo.money);
+        localStorage.setItem("name", playerInfo.name);
+
+        window.alert(playerInfo.name + " now has a score of " + playerInfo.money + "!");
     } else {
-        window.alert("You have lost your robot in battle! Game Over!");
+        window.alert(playerInfo.name + " did not beat the high score of " + highScore + ". Maybe next time!");
     }
 
     var playAgainConfirm = window.confirm("Would you like to play again?");
